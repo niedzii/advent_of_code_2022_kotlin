@@ -3,26 +3,15 @@ package day1
 import java.io.File
 
 fun main() {
-    val scannerReadings = File("src/day1", "day1_input.txt").readLines()
-    println("Stage 1 answer is ${stageOne(scannerReadings)}")
-    println("Stage 2 answer is ${stageTwo(scannerReadings)}")
+    val scannerReadings = File("src/day1", "day1_input.txt").readLines().map { it.toInt() }
+    println("Stage 1 answer is ${stageOne(scannerReadings)}") // 1692
+    println("Stage 2 answer is ${stageTwo(scannerReadings)}") // 1724
 }
 
-fun stageTwo(scannerReadings: List<String>): Int {
-    var result = 0
-    for (index in 0..scannerReadings.size - 4) {
-        val first = scannerReadings.subList(index, index + 3).sumOf { it.toInt() }
-        val second = scannerReadings.subList(
-            index + 1,
-            index + 4
-        ).sumOf { it.toInt() }
-        if (first < second) {
-            result++
-        }
-    }
-    return result
+fun stageTwo(scannerReadings: List<Int>): Int {
+    return scannerReadings.windowed(3, 1).zipWithNext().count { it.first.sum() < it.second.sum() }
 }
 
-fun stageOne(scannerReadings: List<String>): Int {
-    return scannerReadings.map { it.toInt() }.zipWithNext().count { it.first < it.second }
+fun stageOne(scannerReadings: List<Int>): Int {
+    return scannerReadings.zipWithNext().count { it.first < it.second }
 }
