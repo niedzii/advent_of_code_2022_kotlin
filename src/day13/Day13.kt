@@ -57,11 +57,7 @@ fun MutableSet<Pair<Int, Int>>.foldOnY(y: Int): MutableSet<Pair<Int, Int>> {
 fun stageTwo(rows: Set<Pair<Int, Int>>) {
     for (y in 0..5) {
         for (x in 0..39) {
-            if (rows.contains(Pair(x, y))) {
-                print("#")
-            } else {
-                print(".")
-            }
+            print(if (rows.contains(Pair(x, y))) "#" else " ")
         }
         println()
     }
