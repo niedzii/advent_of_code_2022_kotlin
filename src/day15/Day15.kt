@@ -25,7 +25,6 @@ fun stageOne(input: List<String>): Int {
 fun stageTwo(input: List<String>): Int {
     val map = input.map { row -> row.toCharArray().map { it.digitToInt() } }
     return findLowestRiskPath(createNthTimesLargerMap(map, 5))
-
 }
 
 private fun createNthTimesLargerMap(

@@ -13,6 +13,7 @@ import day12.main as day12
 import day13.main as day13
 import day14.main as day14
 import day15.main as day15
+import day16.main as day16
 import day17.main as day17
 
 fun main() {
@@ -32,6 +33,7 @@ fun main() {
     day13()
     day14()
     day15()
+    day16()
     day17()
     val endTime = System.currentTimeMillis()
     println("Time taken : ${endTime - startTime} ms")
