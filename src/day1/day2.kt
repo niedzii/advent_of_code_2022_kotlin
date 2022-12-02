@@ -4,8 +4,8 @@ import java.io.File
 
 fun main() {
     val calories = File("src/day1", "day1_input.txt").readLines()
-    println("Stage 1 answer is ${stageOne(calories)}")
-    println("Stage 2 answer is ${stageTwo(calories)}")
+    println("Stage 1 answer is ${stageOne(calories)}") // 69912
+    println("Stage 2 answer is ${stageTwo(calories)}") // 208180
 }
 
 fun stageOne(calories: List<String>): Int {
