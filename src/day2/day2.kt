@@ -14,10 +14,10 @@ fun stageOne(input: List<String>): Int {
 }
 
 fun stageTwo(input: List<String>): Int {
-    return input.map { it[0] to it[2] }.map { getSantasPlay(it) }.map { pointsPerRound(it) }.sum()
+    return input.map { it[0] to it[2] }.map { mapAfterSantasPlay(it) }.map { pointsPerRound(it) }.sum()
 }
 
-fun getSantasPlay(pair: Pair<Char, Char>): Pair<Char, Char> {
+private fun mapAfterSantasPlay(pair: Pair<Char, Char>): Pair<Char, Char> {
     return when (pair.second) {
         'X' -> {
             pair.copy(second = pair.first.toElement().loser().santa)
@@ -31,27 +31,29 @@ fun getSantasPlay(pair: Pair<Char, Char>): Pair<Char, Char> {
     }
 }
 
-fun pointsPerRound(pair: Pair<Char, Char>): Int {
+private fun pointsPerRound(pair: Pair<Char, Char>): Int {
     return pair.second.toElement().point + outcome(pair)
 }
 
-fun outcome(pair: Pair<Char, Char>): Int {
-    return if ( // draw
-        pair.second.toElement() == pair.first.toElement()
-    ) {
-        3
-    } else if ( // santa wins
-        pair.first.toElement().winner() == pair.second.toElement()
-    ) {
-        6
-    } else {
-        0
+private fun outcome(pair: Pair<Char, Char>): Int {
+    return when {
+        // draw
+        pair.second.toElement() == pair.first.toElement() -> {
+            3
+        }
+        // santa wins
+        pair.first.toElement().winner() == pair.second.toElement() -> {
+            6
+        }
+        else -> {
+            0
+        }
     }
 }
 
-fun Char.toElement() = Element.getElement(this)
+private fun Char.toElement() = Element.getElement(this)
 
-enum class Element(val elf: Char, val santa: Char, val point: Int) {
+private enum class Element(val elf: Char, val santa: Char, val point: Int) {
     ROCK('A', 'X', 1),
     PAPER('B', 'Y', 2),
     SCISSORS('C', 'Z', 3);
