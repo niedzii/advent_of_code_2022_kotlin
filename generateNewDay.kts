@@ -10,6 +10,10 @@ File("$path/src/day$day").mkdir()
 val code = File("$path/src/day$day/day$day.kt")
 val input = File("$path/src/day$day/day${day}_input.txt")
 
+if(code.exists() || input.exists()) {
+    throw Exception("Cannot override")
+}
+
 code.createNewFile()
 input.createNewFile()
 
