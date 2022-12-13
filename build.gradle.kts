@@ -6,6 +6,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("com.beust:klaxon:5.6")
+}
+
 tasks {
     sourceSets {
         main {
