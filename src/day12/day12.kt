@@ -6,7 +6,7 @@ import java.lang.Exception
 fun main() {
     val input = File("src/day12", "day12_input.txt").readLines()
     println("Stage 1 answer is ${stageOne(input)}") // 468
-    println("Stage 2 answer is ${stageTwo(input)}") // 459
+//    println("Stage 2 answer is ${stageTwo(input)}") // 459
 }
 
 fun stageOne(input: List<String>): Int {

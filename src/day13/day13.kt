@@ -29,12 +29,6 @@ fun stageTwo(input: List<String>): Int {
     return (parsed.indexOf(listOf(listOf(6))) + 1) * (parsed.indexOf(listOf(listOf(2))) + 1)
 }
 
-private fun MutableList<Any>.swap(first: Int, second: Int) {
-    val temp = this[first]
-    this[first] = this[second]
-    this[second] = temp
-}
-
 private fun Pair<Any, Any>.compare(): Decision {
     while (true) {
         val result: Decision?
