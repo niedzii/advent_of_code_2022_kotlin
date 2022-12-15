@@ -20,8 +20,8 @@ class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
         asList[y][x] = ele
     }
 
-    fun print(translation: Map<T, Char>) {
-
+    fun print(translation: Map<T, Char>, yWithColor: List<Int> = emptyList()) {
+        print("  ")
         (0 until asList.first().size).forEach {
             if(it % 5 == 0) {
                 print(it % 10)
@@ -38,8 +38,13 @@ class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
             } else {
                 print("  ")
             }
-            asList[column].forEach { rowElement ->
-                print(translation[rowElement])
+            asList[column].forEachIndexed { index, rowElement ->
+                val element = translation[rowElement] ?: rowElement
+                if(yWithColor.contains(index)) {
+                    print("\u001B[31m$element\u001B[0m")
+                } else {
+                    print(element)
+                }
             }
             print("\n")
         }
