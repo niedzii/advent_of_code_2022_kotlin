@@ -8,12 +8,20 @@ package utils
  *      [3]
  *      [4]
  */
-class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
+open class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
 
     private val asList = MutableList(height) { MutableList(width, init) }
 
     fun get(x: Int, y: Int): T {
         return asList[y][x]
+    }
+
+    fun getOrNull(x: Int, y: Int): T? {
+        return try {
+            asList[y][x]
+        } catch (e: IndexOutOfBoundsException) {
+            null
+        }
     }
 
     fun put(x: Int, y: Int, ele: T) {
