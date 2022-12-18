@@ -4,8 +4,8 @@ import java.io.File
 
 fun main() {
     val input = File("src/day18", "day18_input.txt").readLines()
-    println("Stage 1 answer is ${stageOne(input)}") // 
-    println("Stage 2 answer is ${stageTwo(input)}") // 
+    println("Stage 1 answer is ${stageOne(input)}") // 4314
+    println("Stage 2 answer is ${stageTwo(input)}") // 2444
 }
 
 fun stageOne(input: List<String>): Int {
@@ -25,17 +25,29 @@ fun stageOne(input: List<String>): Int {
 
 fun stageTwo(input: List<String>): Int {
     val cubes = input.map { it.parse() }
-    var score = cubes.size * 6
+    var score = 0
 
-    cubes.forEach { cube ->
-        cube.getAdjacentCoordinates().forEach { adjacent ->
-            if (adjacent.getAdjacentCoordinates().all { cubes.contains(it) }) {
-                // interior pocket of air
-                println(adjacent)
-                score -= 1
-            } else if (cubes.contains(adjacent)) {
-                score -= 1
-            }
+    val xBound = cubes.minOf { it.first } - 1..cubes.maxOf { it.first } + 1
+    val yBound = cubes.minOf { it.second } - 1..cubes.maxOf { it.second } + 1
+    val zBound = cubes.minOf { it.third } - 1..cubes.maxOf { it.third } + 1
+
+    val toVisit = mutableListOf(Triple(xBound.first, yBound.first, zBound.first))
+    val visited = mutableSetOf<Triple<Int, Int, Int>>()
+
+
+    while (toVisit.isNotEmpty()) {
+        val element = toVisit.removeFirst()
+
+        if (element !in visited) {
+            element.getAdjacentInRange(xBound, yBound, zBound)
+                .forEach { adjacent ->
+                    if (adjacent in cubes) {
+                        score++
+                    } else {
+                        toVisit.add(adjacent)
+                        visited.add(element)
+                    }
+                }
         }
     }
 
@@ -65,3 +77,10 @@ private fun Triple<Int, Int, Int>.getAdjacentCoordinates(): List<Triple<Int, Int
         )
     }
 }
+
+private fun Triple<Int, Int, Int>.getAdjacentInRange(
+    xBound: IntRange,
+    yBound: IntRange,
+    zBound: IntRange
+) = this.getAdjacentCoordinates()
+    .filter { it.first in xBound && it.second in yBound && it.third in zBound }
