@@ -8,9 +8,9 @@ package utils
  *      [3]
  *      [4]
  */
-open class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
+open class Grid<T: Number>(height: Int, width: Int, init: (index: Int) -> T) {
 
-    private val asList = MutableList(height) { MutableList(width, init) }
+    protected val asList = MutableList(height) { MutableList(width, init) }
 
     fun get(x: Int, y: Int): T {
         return asList[y][x]
@@ -27,6 +27,8 @@ open class Grid<T>(height: Int, width: Int, init: (index: Int) -> T) {
     fun put(x: Int, y: Int, ele: T) {
         asList[y][x] = ele
     }
+
+    fun getHeight() = this.asList.size
 
     fun print(translation: Map<T, Char>, yWithColor: List<Int> = emptyList()) {
         print("  ")
